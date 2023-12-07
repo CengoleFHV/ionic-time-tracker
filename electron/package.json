@@ -1,10 +1,10 @@
 {
   "name": "ionic-time-tracker",
   "version": "1.0.0",
-  "description": "Time Tracker App with Ionic",
+  "description": "An Amazing Capacitor App",
   "author": {
-    "name": "Cengizhan AYDIN",
-    "email": "cay7466@students.fhv.at"
+    "name": "",
+    "email": ""
   },
   "repository": {
     "type": "git",

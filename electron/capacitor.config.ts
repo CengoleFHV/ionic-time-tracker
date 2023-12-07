@@ -1,12 +1,12 @@
-import { CapacitorConfig } from "@capacitor/cli";
+import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: "ionic.time.tracker",
-  appName: "ionic-time-tracker",
-  webDir: "dist",
+  appId: 'ionic.time.tracker',
+  appName: 'ionic-time-tracker',
+  webDir: 'dist',
   server: {
-    androidScheme: "https",
-  },
+    androidScheme: 'https'
+  }
 };
 
 export default config;
