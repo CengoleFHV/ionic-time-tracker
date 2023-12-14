@@ -1,3 +1,10 @@
+import "./Home.css";
+
+import { useEffect } from "react";
+
+import { addOutline } from "ionicons/icons";
+import init, { add } from "wasm-test";
+
 import {
   IonContent,
   IonFab,
@@ -8,11 +15,16 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import "./Home.css";
+
 import TimeTrackDashboard from "../../components/TimeTrackDashboard/TimeTrackDashboard";
-import { addOutline } from "ionicons/icons";
 
 const Home: React.FC = () => {
+  useEffect(() => {
+    init().then(() => {
+      console.log(add(1, 2));
+    });
+  }, []);
+
   return (
     <IonPage>
       <IonHeader>

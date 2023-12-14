@@ -1,15 +1,11 @@
-const Tasks: ITask[] = [
+import { Task } from "../Interfaces/ITask";
+
+let Tasks: Task[] = [
   {
     id: 0,
     name: "get bread",
     isDone: false,
     personalNote: "Bitte kein Roggenbrot",
-  },
-  {
-    id: 1,
-    name: "Lebron Jahames",
-    isDone: false,
-    personalNote: "He a real one",
   },
 ];
 
@@ -17,4 +13,16 @@ const getAllTasks = () => {
   return Tasks;
 };
 
-export { getAllTasks };
+const addTask = (task: Task) => {
+  task.id = Tasks.length;
+
+  Tasks.push(task);
+};
+
+const editTask = (Task: Task, id: number) => {
+  const findIndex = Tasks.findIndex((t) => t.id === id);
+  Tasks[findIndex] = Task;
+  return Tasks;
+};
+
+export { addTask, editTask, getAllTasks };

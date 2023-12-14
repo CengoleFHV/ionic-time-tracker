@@ -1,8 +1,10 @@
-interface ITask {
+import { Dayjs } from "dayjs";
+
+export interface Task {
   id: number;
   name: string;
-  isDone: boolean;
-  startTime?: Date;
-  endTime?: Date;
+  isDone?: boolean;
+  startDate?: Dayjs;
+  endDate?: Dayjs;
   personalNote?: string;
 }

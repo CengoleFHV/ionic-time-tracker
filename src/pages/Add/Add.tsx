@@ -1,20 +1,22 @@
 import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
   IonBackButton,
   IonButtons,
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
 } from "@ionic/react";
+
+import AddTaskForm from "../../components/Forms/AddTask/AddTaskForm";
 
 const Add: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonButtons>
-            <IonBackButton></IonBackButton>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref=".."></IonBackButton>
             <IonTitle>Time Tracker: Add</IonTitle>
           </IonButtons>
         </IonToolbar>
@@ -25,6 +27,7 @@ const Add: React.FC = () => {
             <IonTitle size="large">Time Tracker</IonTitle>
           </IonToolbar>
         </IonHeader>
+        <AddTaskForm />
       </IonContent>
     </IonPage>
   );
