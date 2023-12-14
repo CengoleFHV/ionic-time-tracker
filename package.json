@@ -11,7 +11,8 @@
     "test.unit": "vitest",
     "lint": "eslint",
     "electron": "ionic cap build electron",
-    "serve-chrome": "ionic serve --browser=chrome"
+    "serve-chrome": "ionic serve --browser=chrome",
+    "build:encrypter": "wasm-pack build -t web .\\static\\crypt_tasks\\ -d ./build && npm remove crypt_tasks && npm install ./static/crypt_tasks/build"
   },
   "dependencies": {
     "@capacitor-community/electron": "^5.0.1",
@@ -24,6 +25,7 @@
     "@ionic/react-router": "^7.0.0",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
+    "crypt_tasks": "file:static/crypt_tasks/build",
     "dayjs": "^1.11.10",
     "formik": "^2.4.5",
     "ionicons": "^7.2.1",
@@ -31,7 +33,6 @@
     "react-dom": "^18.2.0",
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
-    "wasm-test": "file:static/pkg",
     "yup": "^1.3.2"
   },
   "devDependencies": {
