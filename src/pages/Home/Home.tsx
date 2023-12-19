@@ -1,9 +1,4 @@
-import "./Home.css";
-
-import { useEffect } from "react";
-
 import { addOutline } from "ionicons/icons";
-import init, { add } from "wasm-test";
 
 import {
   IonContent,
@@ -19,11 +14,14 @@ import {
 import TimeTrackDashboard from "../../components/TimeTrackDashboard/TimeTrackDashboard";
 
 const Home: React.FC = () => {
-  useEffect(() => {
-    init().then(() => {
-      console.log(add(1, 2));
-    });
-  }, []);
+  // useEffect(() => {
+  //   init().then(() => {
+  //     let encrypted = encrypt("Cengole");
+  //     console.log("encrypted ", encrypted);
+
+  //     console.log("decrypted ", decrypt(encrypted));
+  //   });
+  // }, []);
 
   return (
     <IonPage>
@@ -53,4 +51,5 @@ const Home: React.FC = () => {
     </IonPage>
   );
 };
+
 export default Home;

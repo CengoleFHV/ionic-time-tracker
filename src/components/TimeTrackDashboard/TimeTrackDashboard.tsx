@@ -1,101 +1,75 @@
 import { useEffect, useState } from "react";
 
-import dayjs from "dayjs";
-
-import {
-  IonButton,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
-  IonCol,
-  IonGrid,
-  IonRow,
-  IonText,
-} from "@ionic/react";
+import { IonCol, IonGrid, IonRow, IonSpinner, IonText } from "@ionic/react";
+import { useQuery } from "@tanstack/react-query";
 
 import { Task } from "../../Interfaces/ITask";
 import { getAllTasks } from "../../Services/tasks.services";
+import TaskCard from "../TaskCard/TaskCard";
 
 const TimeTrackDashboard = () => {
-  const [allTasks, setAllTasks] = useState<Task[]>([]);
+  const { data, isLoading, isSuccess } = useQuery({
+    queryKey: ["tasks"],
+    queryFn: getAllTasks,
+  });
+
+  const [tasksDoneToday, setTasksDoneToday] = useState<Task[] | undefined>([]);
 
   useEffect(() => {
-    const allTasks = getAllTasks();
-    setAllTasks(allTasks);
-  }, [allTasks]);
+    if (isSuccess && data) {
+      setTasksDoneToday(data.filter((t) => t.isDone));
+    }
+  }, [data, isSuccess]);
 
   return (
     <IonGrid>
       <IonRow>
         <IonCol size="4">
-          <IonText>
-            <IonText>
-              <h2>Today finished Tasks</h2>
-            </IonText>
+          <IonText className="ion-text-center">
+            <h1>Today finished Tasks</h1>
           </IonText>
+          {isLoading && <IonSpinner></IonSpinner>}
+          {isSuccess && (
+            <IonGrid>
+              <IonRow>
+                {tasksDoneToday &&
+                  tasksDoneToday.length !== 0 &&
+                  tasksDoneToday.map((task, key) => (
+                    <IonCol key={key} size="12">
+                      <TaskCard
+                        size={"minimal"}
+                        task={task}
+                        id={key}
+                      ></TaskCard>
+                    </IonCol>
+                  ))}
+              </IonRow>
+            </IonGrid>
+          )}
         </IonCol>
         <IonCol size="8">
-          {allTasks &&
-            allTasks.map((task) => (
-              <IonCard
-                key={task.id}
-                color={`light ${task.startDate && !task.endDate && "warning"}${
-                  task.endDate && "success"
-                }`}
-              >
-                <IonCardHeader>
-                  <IonCardTitle>{task.name}</IonCardTitle>
-                </IonCardHeader>
-                <IonGrid>
-                  <IonRow>
-                    <IonCol>
-                      <IonCardContent>{task.personalNote}</IonCardContent>
-                    </IonCol>
-                  </IonRow>
-                  <IonRow>
-                    <IonCol>
-                      <IonCardContent>
-                        <IonText>
-                          <h2>Start Date</h2>
-                        </IonText>
-                        {task.startDate ? (
-                          dayjs(task.startDate).format("D.M.YYYY - H:m:ss")
-                        ) : (
-                          <p>-</p>
-                        )}
-                      </IonCardContent>
-                    </IonCol>
-                    <IonCol>
-                      <IonCardContent>
-                        <IonText>
-                          <h2>End Date</h2>
-                        </IonText>
-                        {task.endDate ? (
-                          dayjs(task.endDate).format("D.M.YYYY - H:m:ss")
-                        ) : (
-                          <p>-</p>
-                        )}
-                      </IonCardContent>
-                    </IonCol>
-                  </IonRow>
-                  <IonRow>
-                    <IonCardContent>
-                      {!task.startDate && !task.endDate && (
-                        <IonButton color={"success"} onClick={() => {}}>
-                          Start
-                        </IonButton>
-                      )}
-                      {task.startDate && !task.endDate && (
-                        <IonButton color={"danger"} onClick={() => {}}>
-                          Finish
-                        </IonButton>
-                      )}
-                    </IonCardContent>
-                  </IonRow>
-                </IonGrid>
-              </IonCard>
-            ))}
+          <IonText className="ion-text-center">
+            <h1>Open Tasks</h1>
+          </IonText>
+          {isLoading && <IonSpinner></IonSpinner>}
+          {isSuccess && data.length !== 0 ? (
+            <IonGrid>
+              <IonRow>
+                {data.map((task, key) => (
+                  <IonCol key={key} size="12">
+                    <TaskCard task={task} id={key} />
+                  </IonCol>
+                ))}
+              </IonRow>
+            </IonGrid>
+          ) : (
+            <IonText className="ion-text-center">
+              <h4>
+                No Tasks were found 😥. Lets Start by adding some with the ➕
+                Add Button
+              </h4>
+            </IonText>
+          )}
         </IonCol>
       </IonRow>
     </IonGrid>

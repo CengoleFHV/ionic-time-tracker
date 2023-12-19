@@ -1,4 +1,5 @@
 import { Form, Formik } from "formik";
+import { checkmark, close } from "ionicons/icons";
 import * as yup from "yup";
 
 import {
@@ -10,7 +11,9 @@ import {
   IonRow,
   IonText,
   IonTextarea,
+  useIonToast,
 } from "@ionic/react";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { Task } from "../../../Interfaces/ITask";
 import { addTask } from "../../../Services/tasks.services";
@@ -21,14 +24,32 @@ const addTaskValidationScheme = yup.object({
 });
 
 const AddTaskForm = () => {
+  const queryClient = useQueryClient();
+
+  const [present] = useIonToast();
+
   return (
     <Formik
-      initialValues={{ id: 0, name: "", personalNote: "" }}
+      initialValues={{ name: "", personalNote: "" }}
       validationSchema={addTaskValidationScheme}
-      onSubmit={(taskValues: Task) => {
-        taskValues.isDone = false;
+      onSubmit={async (toAddTask: Task) => {
+        toAddTask.isDone = false;
 
-        addTask(taskValues);
+        await addTask(toAddTask);
+
+        queryClient.invalidateQueries({
+          queryKey: ["tasks"],
+          refetchType: "all",
+        });
+
+        present({
+          message: `Task ${toAddTask.name} was added`,
+          duration: 5000,
+          position: "bottom",
+          buttons: [{ role: "cancel", icon: close }],
+          icon: checkmark,
+          color: "success",
+        });
 
         history.go(-1);
       }}

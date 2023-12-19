@@ -1,0 +1,3 @@
+.task-card{
+  transition: 0.3s border-left cubic-bezier(0.8, 0, 0.2, 1);
+}
