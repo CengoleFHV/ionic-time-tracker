@@ -12,7 +12,9 @@
     "lint": "eslint",
     "electron": "ionic cap build electron",
     "serve-chrome": "ionic serve --browser=chrome",
-    "build:encrypter": "wasm-pack build -t web .\\static\\crypt_tasks\\ -d ./build && npm remove crypt_tasks && npm install ./static/crypt_tasks/build"
+    "build:encrypter": "wasm-pack build -t web .\\static\\crypt_tasks\\ -d ./build && npm remove crypt_tasks && npm install ./static/crypt_tasks/build",
+    "electron:mac": "electron-packager ./electron IonicTimeTracker --overwrite --platform=darwin --arch=arm64 --prune=true --out=release-builds",
+    "electron:win": "electron-packager ./electron IonicTimetracker --overwrite --asar --platform=win32 --arch=x64 --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='Ionic Time Tracker'"
   },
   "dependencies": {
     "@capacitor-community/electron": "^5.0.1",
@@ -50,6 +52,7 @@
     "@vitejs/plugin-legacy": "^5.0.0",
     "@vitejs/plugin-react": "^4.0.1",
     "cypress": "^13.5.0",
+    "electron-packager": "^17.1.2",
     "eslint": "^8.35.0",
     "eslint-plugin-react": "^7.32.2",
     "jsdom": "^22.1.0",

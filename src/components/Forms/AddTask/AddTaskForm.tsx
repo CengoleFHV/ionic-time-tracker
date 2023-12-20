@@ -1,9 +1,11 @@
+import dayjs from "dayjs";
 import { Form, Formik } from "formik";
 import { checkmark, close } from "ionicons/icons";
 import * as yup from "yup";
 
 import {
   IonButton,
+  IonCheckbox,
   IonCol,
   IonContent,
   IonGrid,
@@ -18,9 +20,21 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Task } from "../../../Interfaces/ITask";
 import { addTask } from "../../../Services/tasks.services";
 
+yup.addMethod(yup.object, "dayjs", function method(message) {
+  return this.test("dayjs", message, function validate(value) {
+    if (!value) {
+      return true;
+    }
+    return dayjs.isDayjs(value);
+  });
+});
+
 const addTaskValidationScheme = yup.object({
   name: yup.string().required("Give your Task a Name. I believe in you 🙂"),
   personalNote: yup.string(),
+  startDate: yup.date(),
+  endDate: yup.date(),
+  isDone: yup.boolean(),
 });
 
 const AddTaskForm = () => {
@@ -30,11 +44,15 @@ const AddTaskForm = () => {
 
   return (
     <Formik
-      initialValues={{ name: "", personalNote: "" }}
+      initialValues={{
+        name: "",
+        personalNote: "",
+        startDate: undefined,
+        endDate: undefined,
+        isDone: false,
+      }}
       validationSchema={addTaskValidationScheme}
       onSubmit={async (toAddTask: Task) => {
-        toAddTask.isDone = false;
-
         await addTask(toAddTask);
 
         queryClient.invalidateQueries({
@@ -59,7 +77,7 @@ const AddTaskForm = () => {
           <Form>
             <IonGrid>
               <IonRow>
-                <IonCol sizeXs="12" sizeSm="6" offsetXs="0" offsetSm="3">
+                <IonCol sizeXs="12" sizeSm="8" offsetXs="0" offsetSm="2">
                   <IonInput
                     className={`${
                       formikProps.errors.name &&
@@ -86,12 +104,12 @@ const AddTaskForm = () => {
                 </IonCol>
               </IonRow>
               <IonRow>
-                <IonCol sizeXs="12" sizeSm="6" offsetXs="0" offsetSm="3">
+                <IonCol sizeXs="12" sizeSm="8" offsetXs="0" offsetSm="2">
                   <IonTextarea
                     id="personalNote"
                     fill="solid"
                     name="personalNote"
-                    label="Personal Note"
+                    label="Personal Note (optional)"
                     labelPlacement="floating"
                     autoGrow
                     value={formikProps.values.personalNote}
@@ -109,7 +127,90 @@ const AddTaskForm = () => {
                 </IonCol>
               </IonRow>
               <IonRow>
-                <IonCol sizeXs="12" sizeSm="6" offsetXs="0" offsetSm="3">
+                <IonCol sizeXs="12" offsetXs="0" sizeSm="4" offsetSm="2">
+                  <IonInput
+                    className={`${
+                      formikProps.errors.startDate &&
+                      formikProps.touched.startDate &&
+                      "ion-invalid ion-touched"
+                    } `}
+                    id="startDate"
+                    type="datetime-local"
+                    fill="solid"
+                    name="startDate"
+                    label="Start Date (optional)"
+                    labelPlacement="floating"
+                    value={formikProps.values.startDate?.toString()}
+                    onIonChange={formikProps.handleChange}
+                    onIonBlur={formikProps.handleBlur}
+                  ></IonInput>
+                  {formikProps.errors.startDate &&
+                    formikProps.touched.startDate && (
+                      <div className="ion-padding-top ion-padding-start">
+                        <IonText color="danger">
+                          {formikProps.errors.startDate}
+                        </IonText>
+                      </div>
+                    )}
+                </IonCol>
+                <IonCol sizeXs="12" offsetXs="0" sizeSm="4">
+                  <IonInput
+                    className={`${
+                      formikProps.errors.endDate &&
+                      formikProps.touched.endDate &&
+                      "ion-invalid ion-touched"
+                    } `}
+                    id="endDate"
+                    type="datetime-local"
+                    fill="solid"
+                    name="endDate"
+                    label="End Date (optional)"
+                    labelPlacement="floating"
+                    value={formikProps.values.endDate?.toString()}
+                    onIonChange={formikProps.handleChange}
+                    onIonBlur={formikProps.handleBlur}
+                  ></IonInput>
+                  {formikProps.errors.endDate &&
+                    formikProps.touched.endDate && (
+                      <div className="ion-padding-top ion-padding-start">
+                        <IonText color="danger">
+                          {formikProps.errors.endDate}
+                        </IonText>
+                      </div>
+                    )}
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol
+                  sizeXs="12"
+                  offsetXs="0"
+                  sizeSm="8"
+                  offsetSm="2"
+                  className="ion-padding-top ion-padding-bottom"
+                >
+                  <IonCheckbox
+                    labelPlacement="end"
+                    id="isDone"
+                    name="isDone"
+                    checked={formikProps.values.isDone}
+                    onIonChange={(e) =>
+                      formikProps.setFieldValue("isDone", e.target.checked)
+                    }
+                    onIonBlur={formikProps.handleBlur}
+                  >
+                    Task Done?
+                  </IonCheckbox>
+                  {formikProps.errors.isDone && formikProps.touched.isDone && (
+                    <div className="ion-padding-top ion-padding-start">
+                      <IonText color="danger">
+                        {formikProps.errors.isDone}
+                      </IonText>
+                    </div>
+                  )}
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol sizeXs="12" sizeSm="8" offsetXs="0" offsetSm="2">
                   <IonButton type="submit">Speichern</IonButton>
                 </IonCol>
               </IonRow>

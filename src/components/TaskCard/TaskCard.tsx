@@ -109,7 +109,7 @@ const TasksCard = ({ id, task, size = "full" }: TaskCardProps) => {
                     <h2>Start Date</h2>
                   </IonText>
                   {task.startDate ? (
-                    dayjs(task.startDate).format("D.M.YYYY - H:m:ss")
+                    dayjs(task.startDate).format("D.M.YYYY - HH:mm:ss")
                   ) : (
                     <p>--:--</p>
                   )}
@@ -121,7 +121,7 @@ const TasksCard = ({ id, task, size = "full" }: TaskCardProps) => {
                     <h2>End Date</h2>
                   </IonText>
                   {task.endDate ? (
-                    dayjs(task.endDate).format("D.M.YYYY - H:m:ss")
+                    dayjs(task.endDate).format("D.M.YYYY - HH:mm:ss")
                   ) : (
                     <p>--:--</p>
                   )}

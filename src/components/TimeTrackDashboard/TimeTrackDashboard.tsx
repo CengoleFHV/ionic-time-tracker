@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import dayjs from "dayjs";
+
 import { IonCol, IonGrid, IonRow, IonSpinner, IonText } from "@ionic/react";
 import { useQuery } from "@tanstack/react-query";
 
@@ -17,14 +19,27 @@ const TimeTrackDashboard = () => {
 
   useEffect(() => {
     if (isSuccess && data) {
-      setTasksDoneToday(data.filter((t) => t.isDone));
+      setTasksDoneToday(
+        data.filter((t) => {
+          if (
+            t.isDone &&
+            dayjs(t.endDate).isToday() &&
+            t.endDate &&
+            t.startDate
+          ) {
+            return true;
+          } else {
+            return false;
+          }
+        })
+      );
     }
   }, [data, isSuccess]);
 
   return (
     <IonGrid>
       <IonRow>
-        <IonCol size="4">
+        <IonCol sizeMd="4" sizeSm="12">
           <IonText className="ion-text-center">
             <h1>Today finished Tasks</h1>
           </IonText>
@@ -47,7 +62,7 @@ const TimeTrackDashboard = () => {
             </IonGrid>
           )}
         </IonCol>
-        <IonCol size="8">
+        <IonCol sizeMd="8" sizeSm="12">
           <IonText className="ion-text-center">
             <h1>Open Tasks</h1>
           </IonText>

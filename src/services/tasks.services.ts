@@ -20,8 +20,6 @@ const getStoredTasks = async (): Promise<Task[]> => {
     tasks = JSON.parse(localStorageTasks || "[]");
   });
 
-  console.log(tasks);
-
   return tasks;
 };
 
