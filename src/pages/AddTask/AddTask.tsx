@@ -8,23 +8,26 @@ import {
   IonToolbar,
 } from "@ionic/react";
 
-import AddTaskForm from "../../components/Forms/AddTask/AddTaskForm";
+import AddTaskForm from "../../components/Forms/Task/AddTaskForm";
 
-const Add: React.FC = () => {
+const AddTask: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color={"primary"}>
           <IonButtons slot="start">
             <IonBackButton defaultHref=".."></IonBackButton>
-            <IonTitle>Time Tracker: Add</IonTitle>
+            <IonTitle>Add New Task</IonTitle>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen className="ion-padding">
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Time Tracker</IonTitle>
+            <IonButtons slot="start">
+              <IonBackButton defaultHref=".."></IonBackButton>
+            </IonButtons>
+            <IonTitle>Add New Task</IonTitle>
           </IonToolbar>
         </IonHeader>
         <AddTaskForm />
@@ -33,4 +36,4 @@ const Add: React.FC = () => {
   );
 };
 
-export default Add;
+export default AddTask;

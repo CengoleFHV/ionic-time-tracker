@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { Form, Formik } from "formik";
 import { checkmark, close } from "ionicons/icons";
 import * as yup from "yup";
@@ -7,7 +6,6 @@ import {
   IonButton,
   IonCheckbox,
   IonCol,
-  IonContent,
   IonGrid,
   IonInput,
   IonRow,
@@ -19,15 +17,6 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import { Task } from "../../../Interfaces/ITask";
 import { addTask } from "../../../Services/tasks.services";
-
-yup.addMethod(yup.object, "dayjs", function method(message) {
-  return this.test("dayjs", message, function validate(value) {
-    if (!value) {
-      return true;
-    }
-    return dayjs.isDayjs(value);
-  });
-});
 
 const addTaskValidationScheme = yup.object({
   name: yup.string().required("Give your Task a Name. I believe in you 🙂"),
@@ -73,7 +62,7 @@ const AddTaskForm = () => {
       }}
     >
       {(formikProps) => (
-        <IonContent>
+        <div>
           <Form>
             <IonGrid>
               <IonRow>
@@ -211,12 +200,12 @@ const AddTaskForm = () => {
               </IonRow>
               <IonRow>
                 <IonCol sizeXs="12" sizeSm="8" offsetXs="0" offsetSm="2">
-                  <IonButton type="submit">Speichern</IonButton>
+                  <IonButton type="submit">Save</IonButton>
                 </IonCol>
               </IonRow>
             </IonGrid>
           </Form>
-        </IonContent>
+        </div>
       )}
     </Formik>
   );

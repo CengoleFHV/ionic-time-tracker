@@ -2,7 +2,7 @@ import "./TaskCard.css";
 
 import clsx from "clsx";
 import dayjs from "dayjs";
-import { close, closeOutline, trashBin } from "ionicons/icons";
+import { close, closeOutline, createOutline, trashBin } from "ionicons/icons";
 
 import {
   IonButton,
@@ -15,6 +15,7 @@ import {
   IonIcon,
   IonRow,
   IonText,
+  useIonRouter,
   useIonToast,
 } from "@ionic/react";
 import { useQueryClient } from "@tanstack/react-query";
@@ -34,6 +35,7 @@ interface TaskCardProps {
 
 const TasksCard = ({ id, task, size = "full" }: TaskCardProps) => {
   const queryClient = useQueryClient();
+  const router = useIonRouter();
 
   const [present] = useIonToast();
 
@@ -50,6 +52,10 @@ const TasksCard = ({ id, task, size = "full" }: TaskCardProps) => {
       color: "success",
       buttons: [{ role: "cancel", icon: close }],
     });
+  };
+
+  const handleEdit = (id: number) => {
+    router.push("./edit/" + id);
   };
 
   const handleStart = async (id: number) => {
@@ -79,17 +85,32 @@ const TasksCard = ({ id, task, size = "full" }: TaskCardProps) => {
       }}
     >
       {size === "full" && (
-        <IonButton
-          color={"danger"}
-          fill="clear"
-          size="large"
-          className="ion-float-end"
-          onClick={() => {
-            handleDelete(id);
-          }}
-        >
-          <IonIcon icon={closeOutline}></IonIcon>
-        </IonButton>
+        <>
+          <IonButton
+            color={"danger"}
+            fill="clear"
+            size="large"
+            className="ion-float-end"
+            title="Delete"
+            onClick={() => {
+              handleDelete(id);
+            }}
+          >
+            <IonIcon icon={closeOutline}></IonIcon>
+          </IonButton>
+          <IonButton
+            color={"warning"}
+            fill="clear"
+            size="large"
+            className="ion-float-end"
+            title="Edit"
+            onClick={() => {
+              handleEdit(id);
+            }}
+          >
+            <IonIcon icon={createOutline}></IonIcon>
+          </IonButton>
+        </>
       )}
       <IonCardHeader>
         <IonCardTitle>{task.name}</IonCardTitle>

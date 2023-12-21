@@ -20,18 +20,10 @@ const TimeTrackDashboard = () => {
   useEffect(() => {
     if (isSuccess && data) {
       setTasksDoneToday(
-        data.filter((t) => {
-          if (
-            t.isDone &&
-            dayjs(t.endDate).isToday() &&
-            t.endDate &&
-            t.startDate
-          ) {
-            return true;
-          } else {
-            return false;
-          }
-        })
+        data.filter(
+          (t) =>
+            t.isDone && dayjs(t.endDate).isToday() && t.endDate && t.startDate
+        )
       );
     }
   }, [data, isSuccess]);
@@ -39,7 +31,7 @@ const TimeTrackDashboard = () => {
   return (
     <IonGrid>
       <IonRow>
-        <IonCol sizeMd="4" sizeSm="12">
+        <IonCol sizeSm="4" sizeXs="12">
           <IonText className="ion-text-center">
             <h1>Today finished Tasks</h1>
           </IonText>
@@ -47,8 +39,7 @@ const TimeTrackDashboard = () => {
           {isSuccess && (
             <IonGrid>
               <IonRow>
-                {tasksDoneToday &&
-                  tasksDoneToday.length !== 0 &&
+                {tasksDoneToday && tasksDoneToday.length !== 0 ? (
                   tasksDoneToday.map((task, key) => (
                     <IonCol key={key} size="12">
                       <TaskCard
@@ -57,12 +48,20 @@ const TimeTrackDashboard = () => {
                         id={key}
                       ></TaskCard>
                     </IonCol>
-                  ))}
+                  ))
+                ) : (
+                  <IonText className="ion-text-center">
+                    <h4>
+                      You havent finished any Tasks today 😞 Time to get this
+                      Bread 🍞
+                    </h4>
+                  </IonText>
+                )}
               </IonRow>
             </IonGrid>
           )}
         </IonCol>
-        <IonCol sizeMd="8" sizeSm="12">
+        <IonCol sizeSm="8" sizeXs="12">
           <IonText className="ion-text-center">
             <h1>Open Tasks</h1>
           </IonText>

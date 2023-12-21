@@ -25,7 +25,8 @@ import { IonReactRouter } from "@ionic/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import Add from "./pages/Add/Add";
+import AddTask from "./pages/AddTask/AddTask";
+import EditTask from "./pages/EditTask/EditTask";
 import Home from "./pages/Home/Home";
 
 dayjs.extend(isToday);
@@ -44,7 +45,8 @@ const App: React.FC = () => (
             <Route exact path="/home">
               <Home />
             </Route>
-            <Route path="/add" component={Add}></Route>
+            <Route path="/add" component={AddTask}></Route>
+            <Route path="/edit/:id" component={EditTask}></Route>
             <Route exact path="/">
               <Redirect to="/home" />
             </Route>

@@ -1,9 +1,7 @@
-import { Dayjs } from "dayjs";
-
 export interface Task {
   name: string;
   isDone?: boolean;
-  startDate?: Dayjs | Date;
-  endDate?: Dayjs | Date;
+  startDate?: Date;
+  endDate?: Date;
   personalNote?: string;
 }

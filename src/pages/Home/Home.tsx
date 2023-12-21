@@ -14,19 +14,10 @@ import {
 import TimeTrackDashboard from "../../components/TimeTrackDashboard/TimeTrackDashboard";
 
 const Home: React.FC = () => {
-  // useEffect(() => {
-  //   init().then(() => {
-  //     let encrypted = encrypt("Cengole");
-  //     console.log("encrypted ", encrypted);
-
-  //     console.log("decrypted ", decrypt(encrypted));
-  //   });
-  // }, []);
-
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color={"primary"}>
           <IonTitle>Time Tracker</IonTitle>
         </IonToolbar>
       </IonHeader>

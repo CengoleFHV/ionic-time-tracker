@@ -1,5 +1,4 @@
 import init, { decrypt, encrypt } from "crypt_tasks";
-import dayjs from "dayjs";
 
 import { Task } from "../Interfaces/ITask";
 
@@ -58,7 +57,7 @@ const deleteTask = async (id: number) => {
 const startTask = async (id: number) => {
   let tasks = await getStoredTasks();
 
-  tasks[id].startDate = dayjs();
+  tasks[id].startDate = new Date();
 
   setStoredTasks(tasks);
 };
@@ -66,16 +65,32 @@ const startTask = async (id: number) => {
 const finishTask = async (id: number) => {
   let tasks = await getStoredTasks();
 
-  tasks[id].endDate = dayjs();
+  tasks[id].endDate = new Date();
   tasks[id].isDone = true;
 
   setStoredTasks(tasks);
 };
 
-// const editTask = (Task: Task, id: number) => {
-//   const findIndex = Tasks.findIndex((t) => t.id === id);
-//   Tasks[findIndex] = Task;
-//   return Tasks;
-// };
+const getTaskByIndex = async (index: number) => {
+  let tasks = await getStoredTasks();
 
-export { addTask, deleteTask, finishTask, getAllTasks, startTask };
+  return tasks[index];
+};
+
+const editTaskWithIndex = async (task: Task, index: number) => {
+  let tasks = await getStoredTasks();
+
+  tasks[index] = task;
+
+  setStoredTasks(tasks);
+};
+
+export {
+  addTask,
+  deleteTask,
+  editTaskWithIndex,
+  finishTask,
+  getAllTasks,
+  getTaskByIndex,
+  startTask,
+};
