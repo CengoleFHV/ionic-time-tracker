@@ -24,31 +24,31 @@ install afterwards `wasm-pack` form [here](https://github.com/rustwasm/wasm-bind
 
 To get started run the following commands:
 
-```sh
+```console
 npm install -g @ionic/cli
 ```
 
-```sh
+```console
 npm install
 ```
 
-```sh
+```console
 npm run install:encrypter
 ```
 
-```sh
+```console
 npm run build:encrypter
 ```
 
 now you can run
 
-```sh
+```console
 npm run build
 ```
 
 now you have to switch to the electron folder with `cd electron` and run
 
-```sh
+```console
 npm install
 ```
 
@@ -56,7 +56,7 @@ to install all the necessary electron modules
 
 after that return to the root folder and run
 
-```sh
+```console
 npm run electron
 ```
 
@@ -70,7 +70,7 @@ To build the Electron app a few run commands where made to make it simple
 
 To build an Executable for Windows just run the Following Command
 
-```sh
+```console
 npm run electron:win
 ```
 
@@ -82,7 +82,7 @@ This will create an `IonicTimetracker.exe` File in the Folder `release-builds/Io
 
 To Build for `MacOS` Run the Command
 
-```sh
+```console
 npm run electron:mac
 ```
 
@@ -92,6 +92,6 @@ This will create all the necessary files for MacOS in the folder `release-builds
 
 For Linux the Command is
 
-```sh
+```console
 npm run electron:linux
 ```
