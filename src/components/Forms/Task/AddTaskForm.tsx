@@ -73,6 +73,7 @@ const AddTaskForm = () => {
                       formikProps.touched.name &&
                       "ion-invalid ion-touched"
                     } `}
+                    data-cy="name"
                     id="name"
                     type="text"
                     fill="solid"
@@ -96,6 +97,7 @@ const AddTaskForm = () => {
                 <IonCol sizeXs="12" sizeSm="8" offsetXs="0" offsetSm="2">
                   <IonTextarea
                     id="personalNote"
+                    data-cy="personalNote"
                     fill="solid"
                     name="personalNote"
                     label="Personal Note (optional)"
@@ -200,7 +202,9 @@ const AddTaskForm = () => {
               </IonRow>
               <IonRow>
                 <IonCol sizeXs="12" sizeSm="8" offsetXs="0" offsetSm="2">
-                  <IonButton type="submit">Save</IonButton>
+                  <IonButton type="submit" id="saveTaskButton">
+                    Save
+                  </IonButton>
                 </IonCol>
               </IonRow>
             </IonGrid>
