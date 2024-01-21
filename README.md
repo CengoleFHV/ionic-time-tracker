@@ -62,11 +62,11 @@ npm run electron
 
 when the electron app runs it works 🫡
 
-## Building
+## Building 🏗️
 
-To build the Electron app a few run commands where made to make it simple
+To build the Electron app a few run commands were made to make it simple
 
-### Windows
+### Windows 🪟
 
 To build an Executable for Windows just run the Following Command
 
@@ -76,7 +76,7 @@ npm run electron:win
 
 This will create an `IonicTimetracker.exe` File in the Folder `release-builds/IonicTimetracker-win32-x64` from where you will be able to run the Electron App
 
-### MacOS
+### MacOS 🍎
 
 > _These Builds are made for Apple Silicon Powered Macs_
 
@@ -88,7 +88,7 @@ npm run electron:mac
 
 This will create all the necessary files for MacOS in the folder `release-builds/IonicTimeTracker-darwin-arm64`
 
-### Linux
+### Linux 🐧
 
 For Linux the Command is
 
