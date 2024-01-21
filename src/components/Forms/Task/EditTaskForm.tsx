@@ -51,8 +51,10 @@ const EditTaskForm = ({ id }: EditTaskFormProps) => {
           initialValues={{
             name: data.name,
             personalNote: data.personalNote,
-            startDate: data.startDate ? dayjs(data.startDate).toDate() : null,
-            endDate: data.endDate ? dayjs(data.endDate).toDate() : null,
+            startDate: data.startDate
+              ? dayjs(data.startDate).toDate()
+              : undefined,
+            endDate: data.endDate ? dayjs(data.endDate).toDate() : undefined,
             isDone: data.isDone,
           }}
           validationSchema={editTaskValidationScheme}
