@@ -33,6 +33,7 @@ const Home: React.FC = () => {
           vertical="bottom"
           horizontal="end"
           className="ion-padding"
+          id="AddFab"
         >
           <IonFabButton routerLink="/add">
             <IonIcon size="large" icon={addOutline}></IonIcon>

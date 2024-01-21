@@ -12,10 +12,11 @@
     "lint": "eslint",
     "electron": "ionic cap build electron",
     "serve-chrome": "ionic serve --browser=chrome",
-    "build:encrypter": "wasm-pack build -t web .\\static\\crypt_tasks\\ -d ./build && npm remove crypt_tasks && npm install ./static/crypt_tasks/build",
-    "electron:mac": "electron-packager ./electron IonicTimeTracker --overwrite --platform=darwin --arch=arm64 --prune=true --out=release-builds",
-    "electron:win": "electron-packager ./electron IonicTimetracker --overwrite --asar --platform=win32 --arch=x64 --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='Ionic Time Tracker'",
-    "electron:linux": "electron-packager ./electron IonicTimeTracker --overwrite --arch=x64 --platform=linux --prune=true --out=release-builds"
+    "build:encrypter": "wasm-pack build -t web ./static/crypt_tasks/ -d ./build && npm remove crypt_tasks && npm install ./static/crypt_tasks/build",
+    "install:encrypter": "cd static/crypt_tasks && npm install",
+    "electron:mac": "npm run build && ionic build electron && electron-packager ./electron IonicTimeTracker --overwrite --platform=darwin --arch=arm64 --prune=true --out=release-builds",
+    "electron:win": "npm run build && ionic build electron && electron-packager ./electron IonicTimetracker --overwrite --asar --platform=win32 --arch=x64 --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='Ionic Time Tracker'",
+    "electron:linux": "npm run build && ionic build electron && electron-packager ./electron IonicTimeTracker --overwrite --arch=x64 --platform=linux --prune=true --out=release-builds"
   },
   "dependencies": {
     "@capacitor-community/electron": "^5.0.1",
