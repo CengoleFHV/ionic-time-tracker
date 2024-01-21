@@ -187,7 +187,7 @@ const AddTaskForm = () => {
                     }
                     onIonBlur={formikProps.handleBlur}
                   >
-                    Task Done?
+                    Task already Done?
                   </IonCheckbox>
                   {formikProps.errors.isDone && formikProps.touched.isDone && (
                     <div className="ion-padding-top ion-padding-start">

@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 
 import dayjs from "dayjs";
 
-import { IonCol, IonGrid, IonRow, IonSpinner, IonText } from "@ionic/react";
+import {
+  IonCol,
+  IonGrid,
+  IonRow,
+  IonSearchbar,
+  IonSpinner,
+  IonText,
+} from "@ionic/react";
 import { useQuery } from "@tanstack/react-query";
 
 import { Task } from "../../Interfaces/ITask";
@@ -15,10 +22,15 @@ const TimeTrackDashboard = () => {
     queryFn: getAllTasks,
   });
 
+  const [filteredData, setFilteredData] = useState<Task[]>([]);
+
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
   const [tasksDoneToday, setTasksDoneToday] = useState<Task[] | undefined>([]);
 
   useEffect(() => {
     if (isSuccess && data) {
+      setFilteredData(data);
       setTasksDoneToday(
         data.filter(
           (t) =>
@@ -28,8 +40,29 @@ const TimeTrackDashboard = () => {
     }
   }, [data, isSuccess]);
 
+  const handleSearchInput = (ev: Event) => {
+    const target = ev.target as HTMLIonSearchbarElement;
+    if (target) setSearchQuery(target.value!.toLowerCase());
+
+    if (data !== undefined) {
+      const filtered = data.filter(
+        (t) => t.name.toLowerCase().indexOf(searchQuery) > -1
+      );
+
+      setFilteredData(filtered);
+    }
+  };
+
   return (
     <IonGrid>
+      <IonRow>
+        <IonCol sizeXs="12" sizeSm="6" offsetSm="3">
+          <IonSearchbar
+            debounce={150}
+            onIonInput={(ev) => handleSearchInput(ev)}
+          ></IonSearchbar>
+        </IonCol>
+      </IonRow>
       <IonRow>
         <IonCol sizeSm="4" sizeXs="12">
           <IonText className="ion-text-center">
@@ -69,11 +102,17 @@ const TimeTrackDashboard = () => {
           {isSuccess && data.length !== 0 ? (
             <IonGrid>
               <IonRow>
-                {data.map((task, key) => (
-                  <IonCol key={key} size="12">
-                    <TaskCard task={task} id={key} />
-                  </IonCol>
-                ))}
+                {filteredData.length == 0 && searchQuery == ""
+                  ? data.map((task, key) => (
+                      <IonCol key={key} size="12">
+                        <TaskCard task={task} id={key} />
+                      </IonCol>
+                    ))
+                  : filteredData.map((task, key) => (
+                      <IonCol key={key} size="12">
+                        <TaskCard task={task} id={key} />
+                      </IonCol>
+                    ))}
               </IonRow>
             </IonGrid>
           ) : (

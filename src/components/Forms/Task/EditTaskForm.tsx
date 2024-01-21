@@ -51,12 +51,19 @@ const EditTaskForm = ({ id }: EditTaskFormProps) => {
           initialValues={{
             name: data.name,
             personalNote: data.personalNote,
-            startDate: dayjs(data.startDate).toDate(),
-            endDate: dayjs(data.endDate).toDate(),
+            startDate: data.startDate ? dayjs(data.startDate).toDate() : null,
+            endDate: data.endDate ? dayjs(data.endDate).toDate() : null,
             isDone: data.isDone,
           }}
           validationSchema={editTaskValidationScheme}
           onSubmit={async (toEditTask: Task) => {
+            if (toEditTask.startDate?.toString() === "Invalid Date") {
+              toEditTask.startDate = undefined;
+            }
+            if (toEditTask.endDate?.toString() === "Invalid Date") {
+              toEditTask.endDate = undefined;
+            }
+
             editTaskWithIndex(toEditTask, parseInt(id));
 
             queryClient.invalidateQueries({ queryKey: ["tasks"] });
