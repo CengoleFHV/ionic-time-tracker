@@ -10,7 +10,7 @@
     "test.e2e": "cypress run",
     "test.unit": "vitest",
     "lint": "eslint",
-    "electron": "ionic cap build electron",
+    "electron": "cd electron && npm install && ionic cap build electron",
     "serve-chrome": "ionic serve --browser=chrome",
     "build:encrypter": "wasm-pack build -t web ./static/crypt_tasks/ -d ./build && npm remove crypt_tasks && npm install ./static/crypt_tasks/build",
     "install:encrypter": "cd static/crypt_tasks && npm install",
